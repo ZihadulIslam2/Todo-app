@@ -1,0 +1,36 @@
+{
+  "cli": {
+    "version": ">= 6.0.0" // Minimum EAS CLI version required
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk" // Generates an APK for testing
+      },
+      "ios": {
+        "simulator": true // Builds for iOS simulator
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle" // Generates an AAB for publishing
+      },
+      "ios": {
+        "enterpriseProvisioning": "universal" // For enterprise distribution
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./path/to/your/service-account-key.json", // Google Play service account key
+        "track": "internal" // Release track (internal, alpha, beta, production)
+      },
+      "ios": {
+        "appleId": "your-apple-id@example.com", // Apple ID for App Store Connect
+        "ascAppId": "123456789", // App Store Connect App ID
+        "appleTeamId": "ABCDEF1234" // Apple Team ID
+      }
+    }
+  }
+}
