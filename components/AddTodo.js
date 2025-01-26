@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native'
 
 const AddTodo = ({ onAddTodo }) => {
   const [todo, setTodo] = useState('')
@@ -22,7 +28,9 @@ const AddTodo = ({ onAddTodo }) => {
         onChangeText={todoInputHandler}
         value={todo}
       />
-      <Button title="Add" onPress={addTodo} />
+      <TouchableOpacity onPress={addTodo} style={styles.button}>
+        <Text style={styles.buttonText}>Add Todo</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -35,9 +43,22 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: 'black',
+    backgroundColor: '#DBE9F4',
     borderWidth: 1,
     padding: 10,
     width: '80%',
+  },
+  button: {
+    margin: 10,
+    backgroundColor: '#24A0ED', 
+    padding: 10,
+    borderRadius: 10, // Rounded corners
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white', // Text color
+    fontSize: 16,
   },
 })
 
