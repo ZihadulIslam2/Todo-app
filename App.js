@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, ImageBackground } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import TodoItem from './components/TodoItem'
 import AddTodo from './components/AddTodo'
-
+import bgImage from './assets/todo background image.png'
 export default function App() {
   const [todos, setTodos] = useState([])
 
@@ -39,16 +39,21 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <AddTodo onAddTodo={addTodoHandler} />
-      <FlatList
-        data={todos}
-        renderItem={({ item }) => (
-          <TodoItem item={item} onDelete={deleteTodoHandler} />
-        )}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
+    <ImageBackground
+      source={bgImage}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <AddTodo onAddTodo={addTodoHandler} />
+        <FlatList
+          data={todos}
+          renderItem={({ item }) => (
+            <TodoItem item={item} onDelete={deleteTodoHandler} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    </ImageBackground>
   )
 }
 
@@ -56,4 +61,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 50,
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  }
 })
