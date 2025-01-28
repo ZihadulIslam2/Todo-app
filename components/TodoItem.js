@@ -1,9 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native'
 import CheckboxIcon from './CheckboxIcon'
 import deleteIcon from '../assets/delete.png'
 
-const TodoItem = ({ item, onDelete, onToggleComplete }) => {
+const TodoItem = ({ item, onDelete, onToggleComplete, labels }) => {
   return (
     <View style={styles.todoItem}>
       <TouchableOpacity
@@ -11,11 +18,27 @@ const TodoItem = ({ item, onDelete, onToggleComplete }) => {
         onPress={() => onToggleComplete(item.id)}
       >
         <CheckboxIcon checked={item.completed} />
-        <Text
-          style={[styles.todoText, item.completed && styles.completedTodoText]}
-        >
-          {item.value}
-        </Text>
+        <View style={styles.todoTextContainer}>
+          <Text
+            style={[
+              styles.todoText,
+              item.completed && styles.completedTodoText,
+            ]}
+          >
+            {item.value}
+          </Text>
+          <ScrollView horizontal style={styles.labelContainer}>
+            {item.labels && item.labels.length > 0 ? (
+              item.labels.map((label) => (
+                <View key={label} style={styles.label}>
+                  <Text style={styles.labelText}>{label}</Text>
+                </View>
+              ))
+            ) : (
+              <Text style={styles.noLabelText}>No labels</Text>
+            )}
+          </ScrollView>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => onDelete(item.id)}>
         <Image source={deleteIcon} style={styles.deleteIconStyle} />
@@ -52,6 +75,28 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
+  },
+  todoTextContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  labelContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  label: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    marginRight: 5,
+  },
+  labelText: {
+    fontSize: 12,
+  },
+  noLabelText: {
+    fontSize: 12,
+    color: '#888',
   },
 })
 
